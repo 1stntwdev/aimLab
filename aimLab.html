@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aim Lab</title>
+</head>
+<style>
+  .container{
+    width: 1200px;
+    margin: 0 auto;
+  }
+ 
+</style>
+<body>
+  <div class="conatainer">
+
+    <div style="display: flex; justify-content: center;"><button id="start-btn" type="button" >Start / Reset Game</button></div>
+    <div class="title">
+      <input id="input-game" type="text" value="wait for game..." style="margin-top: 1em; width: 100%;" readonly >
+    </div>
+    <div id="aim-area" style="
+    border: 1px solid black;
+    height: 100vh;
+    position: relative;
+    margin-top: 1em;
+    ">
+    <div id="target" style="
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    display: none;
+    border-radius: 999px;
+    position: absolute;
+    "></div>
+      
+    </div>
+  </div>
+</body>
+
+<script>
+ 
+  let gameStart = false;
+  let startTime = 0;
+  let startCountdown = 0;
+  let totalClickNeeded = 5;
+  let countdownTimer;
+  
+  function onCountdown(){
+    if(startCountdown === 1){
+      clearInterval(countdownTimer);
+      input.value = "Game Start"
+      gameStart = true;
+    }else{
+      startCountdown --;
+      input.value = `start game in ${startCountdown}...`
+    }
+    randomPosition();
+  
+  }
+  // (2)
+ function randomPosition(){
+  if (gameStart === true){
+      target.style.display = "block";
+      input.value = `Click the target`
+      const aimArea = document.getElementById("aim-area");
+      const maxX = aimArea.clientWidth - 50;
+      const maxY = aimArea.clientHeight - 50;
+      target.style.left = Math.random() * maxX + "px";
+      target.style.top = Math.random() * maxY + "px";
+    }
+  
+  }
+  // (1)
+  function startGame(){
+    startCountdown = 3;
+    input.value = "start game in 3...";
+    countdownTimer = setInterval(onCountdown,1000);
+  }
+  
+  const startBtn = document.getElementById("start-btn");
+  const input = document.getElementById("input-game");
+  const target = document.getElementById("target")
+  
+  startBtn.addEventListener('click',startGame);
+</script>
+
+</html>
