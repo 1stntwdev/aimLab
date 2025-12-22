@@ -19,9 +19,11 @@
     <div class="title">
       <input id="input-game" type="text" value="wait for game..." style="margin-top: 1em; width: 100%;" readonly >
     </div>
+
     <div id="aim-area" style="
     border: 1px solid black;
-    height: 100vh;
+  
+    height: calc(100vh - (16px + 34px + 20px));   /* mt | input | btn */
     position: relative;
     margin-top: 1em;
     ">
@@ -58,12 +60,9 @@
     randomPosition();
   
   }
-  // (2)
-  function randomPosition() {
-    if (gameStart === true) {
-      target.style.display = "block";
-      input.value = `Click the target`
-      const aimArea = document.getElementById("aim-area");
+
+  function randomTarget(){
+    const aimArea = document.getElementById("aim-area");
       aimArea.width = innerWidth;
       aimArea.height = innerHeight;
       // เลข 50 คือขนาดของวงกลมแดง - เพื่อไม่ให้ล้น
@@ -75,9 +74,44 @@
       // แทนค่าตำแหน่ง
       target.style.top = `${randomTop}px`
       target.style.left = `${randomLeft}px`
-    }
-
   }
+  function randomPosition() {
+    if (gameStart === true) {
+      target.style.display = "block";
+      input.value = `Click the target`
+      const aimArea = document.getElementById("aim-area");
+      aimArea.width = innerWidth;
+      aimArea.height = innerHeight;
+      
+      const maxX = aimArea.clientWidth - 50;
+      const maxY = aimArea.clientHeight - 50;
+      // สุ่มตำแหน่ง
+      const randomLeft = Math.floor(Math.random() * maxX);
+      const randomTop = Math.floor(Math.random() * maxY);
+  
+      target.style.top = `${randomTop}px`
+      target.style.left = `${randomLeft}px`
+    }
+  }
+  const target = document.getElementById('target'); 
+  let countClick = 0;
+  target.addEventListener('click',(e)=>{
+        
+        if(gameStart){
+          countClick++
+          console.log(`Count Click = ${countClick}`)
+        }
+        if(countClick === 3){
+          gameStart === false;
+          target.style.display = "none";
+          alert('Game done')
+        }else{
+          randomTarget();
+        }
+          
+      }) 
+     
+ 
   // (1)
   function startGame(){
     startCountdown = 3;
@@ -87,7 +121,6 @@
   
   const startBtn = document.getElementById("start-btn");
   const input = document.getElementById("input-game");
-  const target = document.getElementById("target")
   
   startBtn.addEventListener('click',startGame);
 </script>
