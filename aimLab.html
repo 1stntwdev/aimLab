@@ -15,13 +15,14 @@
 <body>
   <div class="conatainer">
     <div class="btn-area" style="display: flex; justify-content: center;">
-      <div><button id="start-btn" type="button" >Practice Aim</button></div>
+      <div><button id="practice-btn" type="button" >Practice Aim</button></div>
       <div><button id="exit-btn" type="button" >Exit</button></div>
     </div>
     <div class="btn-level"  style="margin-top: 0.5em; display: flex; justify-content: center; border:1px solid rgb(174, 174, 174);">
       <input id="hard-btn" type="radio" name="levelAim" value="hard" ><label for="hard-btn">HARD</label>
-      <input id="normal-btn" type="radio" name="levelAim" value="normal" ><label for="normal-btn">NORMAL</label>
+      <input id="normal-btn" type="radio" name="levelAim" value="normal" checked ><label for="normal-btn">NORMAL</label>
       <input id="easy-btn" type="radio" name="levelAim" value="easy" ><label for="easy-btn">EASY</label>
+      <button id="">Start</button>
     </div>
       
     <div class="title">
@@ -79,7 +80,7 @@
 
   function onCountdown(){
     if(startCountdown === 1){
-      input.value = "Game Start"
+      input.value = `Game start`;
       gameStart = true;
       clearInterval(countdownTimer);
       randomPosition();
@@ -106,7 +107,7 @@
   function randomPosition() {
     if (gameStart === true) {
       target.style.display = "block";
-      input.value = `Click the target`
+      input.value = `Shoot the target ${totalClickNeeded} remaing`
       const aimArea = document.getElementById("aim-area");
       aimArea.width = innerWidth;
       aimArea.height = innerHeight;
@@ -122,16 +123,19 @@
     }
   }
   const target = document.getElementById('target'); 
- 
+ let remain ;
   target.addEventListener('click',(e)=>{
         
         if(gameStart){
           countClick++
           console.log(`Count Click = ${countClick}`)
+          let remain = totalClickNeeded - countClick;
+          input.value = `remaing ${remain} `;
         }
-        if(countClick === 3){
+        if(countClick === totalClickNeeded){
           gameStart = false;
           target.style.display = "none";
+          input.value = `wait for game...`;
           alert('Game done')
         }else{
           randomTarget();
@@ -164,7 +168,7 @@
     countdownTimer = setInterval(onCountdown, 1000);
   }
 
-  const startBtn = document.getElementById("start-btn");
+  const practiceBtn = document.getElementById("practice-btn");
   const exitBtn = document.getElementById("exit-btn");
   const input = document.getElementById("input-game");
 
@@ -179,7 +183,7 @@
   exitBtn.addEventListener('click',()=>{
     resetGame();
   });
-  startBtn.addEventListener('click',startGame);
+  practiceBtn.addEventListener('click',startGame);
 </script>
 
 </html>
