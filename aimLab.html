@@ -18,6 +18,12 @@
       <div><button id="start-btn" type="button" >Practice Aim</button></div>
       <div><button id="exit-btn" type="button" >Exit</button></div>
     </div>
+    <div class="btn-level"  style="margin-top: 0.5em; display: flex; justify-content: center; border:1px solid rgb(174, 174, 174);">
+      <input id="hard-btn" type="radio" name="levelAim" value="hard" ><label for="hard-btn">HARD</label>
+      <input id="normal-btn" type="radio" name="levelAim" value="normal" ><label for="normal-btn">NORMAL</label>
+      <input id="easy-btn" type="radio" name="levelAim" value="easy" ><label for="easy-btn">EASY</label>
+    </div>
+      
     <div class="title">
       <input id="input-game" type="text" value="wait for game..." style="margin-top: 1em; width: 100%;" readonly >
     </div>
@@ -25,7 +31,7 @@
     <div id="aim-area" style="
     border: 1px solid black;
   
-    height: calc(100vh - (16px + 34px + 20px));   /* mt | input | btn */
+    height: calc(100vh - (16px + 16px + 34px + 20px));   /* mt*2 | input | btn */
     position: relative;
     margin-top: 1em;
     ">
@@ -50,7 +56,27 @@
   let totalClickNeeded = 5;
   let countdownTimer; 
   let countClick = 0;
-  
+
+  let currentLevel = "normal";
+  function setDifficulty(level){
+    // level = e.target.value ที่ส่งมา
+    currentLevel = level;
+    switch (level) {
+      case "easy":
+        console.log(`easy=${level}`)
+        break;
+    
+      case "normal":
+        console.log(`noraml=${level}`);
+        
+        break;
+        case "hard":
+        console.log(`hard=${level}`);
+        break
+    }
+
+  }
+
   function onCountdown(){
     if(startCountdown === 1){
       input.value = "Game Start"
@@ -141,7 +167,15 @@
   const startBtn = document.getElementById("start-btn");
   const exitBtn = document.getElementById("exit-btn");
   const input = document.getElementById("input-game");
-  
+
+  // Btn
+  document.querySelector('.btn-level').addEventListener('change', (e) => {
+    if (e.target.name === 'levelAim') {
+      console.log('Selected level:', e.target.value);
+      setDifficulty(e.target.value);
+    }
+  });
+
   exitBtn.addEventListener('click',()=>{
     resetGame();
   });
