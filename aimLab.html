@@ -14,8 +14,10 @@
 </style>
 <body>
   <div class="conatainer">
-
-    <div style="display: flex; justify-content: center;"><button id="start-btn" type="button" >Start / Reset Game</button></div>
+    <div class="btn-area" style="display: flex; justify-content: center;">
+      <div><button id="start-btn" type="button" >Practice Aim</button></div>
+      <div><button id="exit-btn" type="button" >Exit</button></div>
+    </div>
     <div class="title">
       <input id="input-game" type="text" value="wait for game..." style="margin-top: 1em; width: 100%;" readonly >
     </div>
@@ -46,19 +48,19 @@
   let startTime = 0;
   let startCountdown = 0;
   let totalClickNeeded = 5;
-  let countdownTimer;
+  let countdownTimer; 
+  let countClick = 0;
   
   function onCountdown(){
     if(startCountdown === 1){
-      clearInterval(countdownTimer);
       input.value = "Game Start"
       gameStart = true;
+      clearInterval(countdownTimer);
+      randomPosition();
     }else{
       startCountdown --;
       input.value = `start game in ${startCountdown}...`
     }
-    randomPosition();
-  
   }
 
   function randomTarget(){
@@ -94,7 +96,7 @@
     }
   }
   const target = document.getElementById('target'); 
-  let countClick = 0;
+ 
   target.addEventListener('click',(e)=>{
         
         if(gameStart){
@@ -102,7 +104,7 @@
           console.log(`Count Click = ${countClick}`)
         }
         if(countClick === 3){
-          gameStart === false;
+          gameStart = false;
           target.style.display = "none";
           alert('Game done')
         }else{
@@ -111,17 +113,38 @@
           
       }) 
      
- 
-  // (1)
-  function startGame(){
-    startCountdown = 3;
-    input.value = "start game in 3...";
-    countdownTimer = setInterval(onCountdown,1000);
+  function resetGame() {
+    // รีเซ็ตค่าตัวแปรทั้งหมด
+    gameStart = false;
+    startTime = 0;
+    startCountdown = 0;
+    countClick = 0;
+    
+    // รีเซ็ต UI
+    target.style.display = "none";
+    input.value = "wait for game...";
+    if (countdownTimer) {
+      clearInterval(countdownTimer);
+    }
   }
-  
+  // (1)
+  function startGame() {
+    // รีเซ็ทเกมก่อนเริ่ม
+    
+    resetGame();
+    // เริ่มเกม
+    input.value = "start game in 3...";
+    startCountdown = 3;
+    countdownTimer = setInterval(onCountdown, 1000);
+  }
+
   const startBtn = document.getElementById("start-btn");
+  const exitBtn = document.getElementById("exit-btn");
   const input = document.getElementById("input-game");
   
+  exitBtn.addEventListener('click',()=>{
+    resetGame();
+  });
   startBtn.addEventListener('click',startGame);
 </script>
 
