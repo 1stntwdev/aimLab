@@ -1,11 +1,11 @@
 // game.js - โหมดจริง
-import { sharedCode } from './shared.js';
+import { sharedCode } from './sharedCode.js';
 import { resetGame, randomPosition } from './practice.js';
-
 let currentLevel = "normal";
 let durationLevel = 1000;
 
 const startBtn = document.getElementById("start-btn");
+console.log(startBtn)
 const input = document.getElementById("input-game");
 const target = document.getElementById('target');
 

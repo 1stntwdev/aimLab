@@ -24,7 +24,7 @@
       <input id="hard-btn" type="radio" name="levelAim" value="hard"><label for="hard-btn">HARD</label>
       <input id="normal-btn" type="radio" name="levelAim" value="normal" checked><label for="normal-btn">NORMAL</label>
       <input id="easy-btn" type="radio" name="levelAim" value="easy"><label for="easy-btn">EASY</label>
-      <button id="">Start</button>
+      <button id="start-btn" type="button">Start</button>
     </div>
 
     <div class="title">
@@ -50,119 +50,7 @@
     </div>
   </div>
 </body>
-
-<script>
-
-  let gameStart = false;
-  let startCountdown = 0;  //ตัวแปรนับเวลาเริ่ม 3 2 1 game start
-  let totalClickNeeded = 5;
-  let countdownTimer;  //ตัวแปรนับเวลาเริ่ม 3 2 1 game start
-  let countClick = 0;
-  let remain = 0;
-  let currentLevel = "normal";
-
-  const practiceBtn = document.getElementById("practice-btn");
-  const exitBtn = document.getElementById("exit-btn");
-  const input = document.getElementById("input-game");
-
-  const target = document.getElementById('target');
-
-  // Btn-level DOM
-  document.querySelector('.btn-level').addEventListener('change', (e) => {
-    if (e.target.name === 'levelAim') {
-      // console.log('Selected level:', e.target.value);
-      setDifficulty(e.target.value);
-    }
-  });
-  exitBtn.addEventListener('click', () => resetGame());
-  practiceBtn.addEventListener('click', PracticeGame);
-
-  function setDifficulty(level) {
-    // level = e.target.value ที่ส่งมา
-    currentLevel = level;
-    switch (level) {
-      case "easy":
-        console.log(`easy=${level}`)
-        break;
-
-      case "normal":
-        console.log(`noraml=${level}`);
-
-        break;
-      case "hard":
-        console.log(`hard=${level}`);
-        break
-    }
-  }
-
-  function PracticeGame() {
-    // รีเซ็ทเกมก่อนเริ่ม
-    resetGame();
-    // เริ่มเกม
-    input.value = "start game in 3...";
-    startCountdown = 3;
-    countdownTimer = setInterval(onPracticeCountdown, 1000);
-  }
-
-  function onPracticeCountdown() {
-    if (startCountdown === 1) {
-      input.value = `Practice mode start 5 target remaning`;
-      gameStart = true;
-      clearInterval(countdownTimer);
-      randomPosition();
-    } else {
-      startCountdown--;
-      input.value = `start game in ${startCountdown}...`
-    }
-  }
-  function randomPosition() {
-    target.style.display = "block";
-    const aimArea = document.getElementById("aim-area");
-    aimArea.width = innerWidth;
-    aimArea.height = innerHeight;
-
-    const maxX = aimArea.clientWidth - 50;
-    const maxY = aimArea.clientHeight - 50;
-    // สุ่มตำแหน่ง
-    const randomLeft = Math.floor(Math.random() * maxX);
-    const randomTop = Math.floor(Math.random() * maxY);
-
-    target.style.top = `${randomTop}px`
-    target.style.left = `${randomLeft}px`
-  }
-
-  target.addEventListener('click', (e) => {
-
-    if (gameStart) {
-      countClick++
-      console.log(`Count Click = ${countClick}`)
-      remain = totalClickNeeded - countClick;
-      input.value = `Practice mode start ${remain} target remaning  `;
-    }
-    if (countClick === totalClickNeeded) {
-      gameStart = false;
-      target.style.display = "none";
-      input.value = `wait for game...`;
-      alert('Game done')
-    } else {
-      randomPosition();
-    }
-  })
-
-  function resetGame() {
-    // รีเซ็ตค่าตัวแปรทั้งหมด
-    gameStart = false;
-    startCountdown = 0;
-    countClick = 0;
-    // รีเซ็ต UI
-    target.style.display = "none";
-    input.value = "wait for game...";
-    if (countdownTimer) {
-      clearInterval(countdownTimer);
-    }
-  }
-
-
-</script>
+ <script type="module" src="./practice.js"></script>
+  <script type="module" src="./gameStart.js"></script>
 
 </html>
