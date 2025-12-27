@@ -5,47 +5,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aim Lab</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <style>
-  .container {
-    width: 1200px;
-    margin: 0 auto;
-  }
+  
 </style>
 
 <body>
   <div class="conatainer">
-    <div class="btn-area" style="display: flex; justify-content: center;">
-      <div><button id="practice-btn" type="button">Practice Aim</button></div>
-      <div><button id="exit-btn" type="button">Exit</button></div>
+    <div class="btn-area" >
+      <div><button data-ico="🔫"  id="practice-btn" type="button">Practice Aim</button></div>
+      <div><button id="exit-btn" class="exit-btn" type="button">Exit</button></div>
     </div>
-    <div class="btn-level"
-      style="margin-top: 0.5em; display: flex; justify-content: center; border:1px solid rgb(174, 174, 174);">
+    <div class="btn-level">
       <input id="hard-btn" type="radio" name="levelAim" value="hard"><label for="hard-btn">HARD</label>
       <input id="normal-btn" type="radio" name="levelAim" value="normal" checked><label for="normal-btn">NORMAL</label>
       <input id="easy-btn" type="radio" name="levelAim" value="easy"><label for="easy-btn">EASY</label>
-      <button id="start-btn" type="button">Start</button>
+      <button id="start-btn" type="button" data-ico="▄︻デ══━一💥">Start</button>
     </div>
 
     <div class="title">
-      <input id="input-game" type="text" value="wait for game..." style="margin-top: 1em; width: 100%;" readonly>
+      <input id="input-game" type="text" value="wait for game..."  readonly>
     </div>
 
-    <div id="aim-area" style="
-    border: 1px solid black;
-  
-    height: calc(100vh - (16px + 16px + 34px + 20px));   /* mt*2 | input | btn */
-    position: relative;
-    margin-top: 1em;
-    ">
-      <div id="target" style="
-    width: 50px;
-    height: 50px;
-    background-color: red;
-    display: none;
-    border-radius: 999px;
-    position: absolute;
-    "></div>
+    <div id="aim-area">
+      <div id="target" ></div>
 
     </div>
   </div>
