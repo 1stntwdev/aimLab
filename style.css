@@ -1,5 +1,8 @@
 *{
   box-sizing: border-box;
+   font-family: "BBH Bartle", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 body{
 background: repeating-linear-gradient(
@@ -35,7 +38,8 @@ button:hover{
    color: #000000;
 }    
   .exit-btn{
-    width: 100px;
+    /* width: 100px; */
+    padding: 1em;
   } 
 }
 .btn-level{
@@ -58,10 +62,12 @@ button:hover{
   background-color: #fbdf0d;
   
   }
+  
  input[type="radio"]:checked + label {
   background-color: #fbeb0d;
   color: #000000;
  }
+ 
   label{
     margin-right: 1em;
     cursor: pointer;
@@ -72,7 +78,7 @@ button:hover{
     align-items: center;
     border-radius: 5px;
     
-  font-weight: bold;
+  /* font-weight: bold; */
   }
   label:before {
     content: "";
@@ -82,6 +88,14 @@ button:hover{
     border-radius: 50%;
     box-sizing: border-box;
   }
+  label:hover {
+ background-color: #ffe100;
+  color: #727272;
+ }
+ label:hover:before{
+  border-color: #d4c000; 
+  background-color: #fff5b3; 
+ }
 
   button{
     padding: 1em 2em;
