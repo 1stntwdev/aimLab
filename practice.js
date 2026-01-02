@@ -7,9 +7,9 @@ const input = document.getElementById("input-game");
 const target = document.getElementById('target');
 
 exitBtn.addEventListener('click', () => resetGame());
-practiceBtn.addEventListener('click', PracticeGame);
+practiceBtn.addEventListener('click', practiceGame);
 
-function PracticeGame() {
+function practiceGame() {
   resetGame();
   input.value = "start game in 3...";
   sharedCode.startCountdown = 3;
